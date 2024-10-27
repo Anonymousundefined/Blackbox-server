@@ -1,0 +1,10 @@
+// router.get("/test",auth);
+ 
+const bcrpyt=require("bcrypt");
+
+ 
+const { trusted } = require("mongoose");
+ 
+ const{password,confirmPassword,token}=req.body;
+
+ 
