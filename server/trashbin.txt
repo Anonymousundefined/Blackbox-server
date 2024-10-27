@@ -1,0 +1,219 @@
+additionaldetails:profileDetails._id,
+ 
+const userRoutes = require("./routes/User");
+ 
+// Import the required modules]
+
+ 
+// Import the required controllers and middleware functions
+
+ 
+// Export the router for use in the main application
+ 
+esetting user's password after verification
+ 
+// ********************************************************************************************************
+//                                      Reset Password
+// ********************************************************************************************************
+
+// Route for generating a reset password token
+ 
+// Route for Changing the password
+
+ 
+// Route for sending OTP to the user's email
+
+ 
+// Route for user signup
+
+ 
+// Routes for Login, Signup, and Authen
+
+ 
+// Route for user login
+ 
+// ********************************************************************************************************
+//                                      Authentication routes
+// ********************************************************************************************************
+ 
+const express= require("express");
+const router=express.Router();
+
+const{sendOTP,signup,login,}=require("../controllers/Auth");
+const{auth,isAdmin,isStudent}=require("../middlewares/auth");
+const{math}=require("../controllers/math");
+
+router.post("/signup",signup);
+router.post("/login",login);
+router.post("/math",math);
+
+router.get("/test",auth,(req,res)=>{res.json({success:true,message:"ITs just authentic test route ", });});
+router.get("/student",auth,isStudent,(req,res)=>{res.json({success:true,message:"Welcome to student route", });});
+router.get("/admin",auth,isAdmin,(req,res)=>{res.json({success:true,message:"Welcome to Admin route", });});
+
+
+module.exports=router;  
+ 
+next();
+ 
+requestAnimationFrame()
+ 
+requestAnimationFrame()
+ 
+//change password
+ 
+ 
+ 
+ // Return 500 Internal Server Error status code with error message
+ 
+console.log(error);
+      cosn
+ 
+Invalid credentials
+ 
+const isValidPassword=await
+ 
+const OTP=require("../models/OTP");
+ 
+MAIL_HOST=
+MAIL_USER=
+MAIL_PASSS
+ 
+MAIL_HOST=
+MAIL_USER=
+MAIL_PASS=
+ 
+h
+ 
+gender:{
+            type:String,
+        },
+        dateOfBirth:{
+            type:String,
+        },
+        about:{
+            type:String,
+            trim:true,
+        },
+        contactNumber:{
+            type:String,
+            trim:true,
+           
+        },
+       
+ 
+title:{
+        type:String,
+       },
+       timeDuration:{
+        type:String,
+       },
+       description:{
+        type:String,
+       },
+       videoUrl:{
+        type:String,
+       }
+ 
+tring
+ 
+     type:String,
+            trim:true,
+        },
+        contactNumber:{
+            type:String,
+            trim:true,
+           
+        },
+       
+ 
+ gender:{
+            type:String,
+        },
+        dateOfBirth:{
+            type:String,
+        },
+        about:{
+            type:String,
+            trim:true,
+        },
+        contactNumber:{
+            type:String,
+            trim:true,
+           
+        },
+ 
+ gender:{
+            type:String,
+        },
+        dateOfBirth:{
+            type:String,
+        },
+        about:{
+            type:String,
+            trim:true,
+        },
+        contactNumber:{
+            type:String,
+            trim:true,
+           
+        },
+ 
+ref:"Course",
+ 
+type:mongoose.type.Object
+ 
+ gender:{
+            type:String,
+        },
+        dateOfBirth:{
+            type:String,
+        }
+        about:{
+            type:String,
+            trim:true,
+        },
+        contactNumber:{
+            type:String,
+            trim:true,
+           
+        },  
+ 
+ accountType:{
+            type:String,
+            enum:["Admin","Student","Instructor"],
+        },
+        addtionalDetails:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Profile",
+            required:true,
+        }, 
+        courses:[
+            {
+                type:mongoose.Schema.Types.ObjectId,
+                ref:"Course",
+            }
+        ],
+        image:{
+            type:String,
+            requiredd:true,
+        },
+        courseProgress:[
+            {
+                type:mongoose.Schema.Types.ObjectId,
+                ref:"CourseProgress",
+            }
+        ],
+
+ 
+ required:true,
+ 
+ required:true,
+            trim:true,
+ 
+ required:true,
+            trim:true,
+ 
+ required:true,
+            trim:true,
+ 
