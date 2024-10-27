@@ -38,13 +38,12 @@ This project is intended as a learning tool and can be used as a sample project 
 
 1. Clone the repository to your local machine.
     ```sh
-    git clone https://github.com/himanshu8443/Study-Notion-master.git
+    git clone https://github.com/Anonymousundefined/Blackbox-server.git
     ```
 
 2. Install the required packages.
     ```sh
-    cd Study-Notion-master
-    npm install
+  
     
     cd server
     npm install
@@ -58,7 +57,7 @@ This project is intended as a learning tool and can be used as a sample project 
 
 4. Start the development server.
     ```sh
-    npm run dev
+    nodemon index.js
     ```
 
 5. Open the project in your browser at [`http://localhost:3000`](http://localhost:3000) to view your project.
