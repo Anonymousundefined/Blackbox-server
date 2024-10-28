@@ -62,4 +62,4 @@ This project is intended as a learning tool and can be used as a sample project 
 
 5. Open the project in your browser at [`http://localhost:3000`](http://localhost:3000) to view your project.
 
-The project is set up to use `postcss-cli` to process your CSS files. You can add your own `tailwind.config.js` file to customize your Tailwind setup.
+
