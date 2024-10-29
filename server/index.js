@@ -1,6 +1,7 @@
 const express=require("express");
 const app=express();
 const userRoutes = require("./routes/User");
+const courseRoutes = require("./routes/Course");
 require("dotenv").config();
 
 const PORT=process.env.PORT ||3000;
@@ -9,6 +10,8 @@ app.use(express.json());
 // const fileupload=require("express-fileupload");
 // app.use(fileupload({useTempFiles:true,tempFileDir:"/tmp"}));
 app.use("/api/v1/auth", userRoutes);
+app.use("/api/v1/course", courseRoutes);
+
   
 const dbconnect=require("./config/database");
 dbconnect();
