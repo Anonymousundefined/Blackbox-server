@@ -1,3 +1,250 @@
+   
+ 
+const mongoose  = require("mongoose");
+
+const userSchema=new mongoose.Schema(
+    {
+        firstName:{
+            type:String,
+            required:true,
+            trim:true,
+        },
+        lastName:{
+            type:String,
+            required:true,
+            trim:true,
+        },
+        email:{
+            type:String,
+            required:true,
+            trim:true,
+        },
+        password:{
+            type:String,
+            required:true,
+        },
+        accountType:{
+            type:String,
+            enum:["Admin","Student","Instructor"],
+        },
+        // addtionalDetails:{
+        //     type:mongoose.Schema.Types.ObjectId,
+        //     ref:"Profile",
+        //     required:true,
+        // }, 
+        courses:[
+            {
+                type:mongoose.Schema.Types.ObjectId,
+                ref:"Course",
+            }
+        ],
+        image:{
+            type:String,
+            requiredd:true,
+        },
+        token: {
+			type: String,
+		},
+		resetPasswordExpires: {
+			type: Date,
+		},
+        courseProgress:[
+            {
+                type:mongoose.Schema.Types.ObjectId,
+                ref:"CourseProgress",
+            }
+        ],
+});
+module.exports=mongoose.model("User",userSchema);
+ 
+const mongoose  = require("mongoose");
+const courseSchema=new mongoose.Schema(
+    {
+       courseName:{
+        type:String,
+        required:true,
+       },
+       courseDescription:{
+        type:String,
+        required:true,
+       },
+       instructor:{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:"User",
+       },
+       whatYouWillLearn:{
+        type:String,
+       required:true,
+       trim:true,
+       },
+       price:{
+        type:Number,
+        required:true,
+       },
+       thumbnail:{
+        type:String,
+        required:true,
+       },
+    //    courseContent:[{
+    //     type:mongoose.Schema.Types.ObjectId,
+    //     ref:Section,
+    //    }],
+       ratingAndReviews:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"RatingAndReviews",
+       }],
+       tags:{
+        type:String
+    },
+    category:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Category"
+    },
+     
+       studentsEnrolled:{
+        type:mongoose.Schema.Types.ObjectId,
+        
+        ref:"User",
+       }
+});
+module.exports=mongoose.model("Course",courseSchema);
+ 
+  category:{
+       type:mongoose.Schema.Types.ObjectId,
+       ref:"Category",
+       },
+ 
+//getAllCourses ka handle function
+ 
+/ Pass the ObjectId directly
+    {
+ 
+ 
+ 
+req.body.token 
+ 
+        const token = req.body.token||;
+
+ 
+ // await User.findByIdAndUpdate(
+        //     {id: userId},
+        //     {
+        //         $push: {
+        //             courses : newCourse._id,
+        //         }
+        //     },
+        //     {new: true,}
+        // )
+ 
+ await Tag.findByIdAndUpdate(
+            {id: tagDetails._id},
+            {
+                $push:  {courses : newCourse._id, }
+            },
+            {new: true,}
+        )
+ 
+await User.findByIdAndUpdate(
+           {id: instructorDetails._id}
+            {
+                $push: { courses : newCourse._id,}
+            },
+            {new: true,}
+        )
+ 
+ // verificationn issue
+            return res.status(401).json({
+                success : false,
+                message : "token is invalid",
+            })
+ 
+// exports.auth=async(req,res,next)=>{
+//     try
+//     {
+//         const token = 
+//         req.cookies.token ||
+//         req.body.token ;
+//       if(!token)
+//       {
+//         return res.status(401).json({success:false,message:"Token is missing"});
+//       }
+//       try
+//       {
+//        const decode=await jwt.verify(token,process.env.JWT_SECRET);
+//        console.log(decode);
+//        req.user=decode;  
+//       }
+//        catch(error)
+//        {
+//         return res.status(401).json({success:false,message:"Token is invalid"});
+//        }
+//        next();
+//     }
+//     catch(error)
+//     {
+//         console.log(error);
+//        res.status(401).json({success:false,message:"Something went wrong while validating token"});
+//     }
+
+// }
+ 
+  || req.body.token 
+                || (req.header("Authorization") && req.header("Authorization").replace("Bearer ", ""));
+ 
+  // const token = req.cookies.token 
+        //                 || req.body.token 
+                        || req.header("Authorisation").replace("Bearer", "");
+ 
+        (req.header("Authorization") && req.header("Authorization").replace("Bearer ", ""));
+
+ 
+ const token = 
+        req.cookies.token ||
+        req.body.token ||
+        (req.header("Authorization") && req.header("Authorization").replace("Bearer ", ""));
+ 
+  || req.body.token 
+        || req.header("Authorisation").replace("Bearer", "")
+ 
+ const token =  req.body.token;
+ 
+ getAllCourses,
+    getCourseDetails,
+    getFullCourseDetails,
+    editCourse,
+    getInstructorCourses,
+    deleteCourse,
+
+ 
+        //add the new course to the user schema of the instructor
+
+ 
+  //update Tag ka schema
+        // await Tag.findByIdAndUpdate(
+        //     {
+
+        //     }
+        // )
+        // return response 
+ 
+Tag: tagDetails._id,
+ 
+     //create an entry for a new course
+ 
+   //upload image to cloudinary
+ 
+ //check given tag is valid do or not
+ 
+ //if instructorDetails not found
+ 
+//check for instructor
+ 
+ //data fetch
+ 
+//createCourse ka handler function
+
+ 
 const userRoutes = require("./routes/Course");
 
  
