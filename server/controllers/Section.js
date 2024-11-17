@@ -79,12 +79,7 @@ exports.deleteSection = async (req,res) => {
         await Section.findByIdAndDelete(sectionId);
         console.log('Section deleted')
 
-        const updatedCourse = await Course.findById(courseId)
-          .populate({
-              path:"courseContent",
-              populate: {
-                  path:"subSection"
-              }});
+         
         return res.status(200).json({
             success:true,
             message:'Section deleted successfully',
