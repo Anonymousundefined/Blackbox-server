@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
     additionalDetails:{
         type:mongoose.Schema.Types.ObjectId, 
         ref:"Profile",
-        required:true, //watch for this required or not
+        required:true,
     },
     courses:[{
         type:mongoose.Schema.Types.ObjectId, 

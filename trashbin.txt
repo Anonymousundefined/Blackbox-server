@@ -1,3 +1,423 @@
+ sectionDetails.subSection.forEach( async (ssid)=>{
+            await SubSection.findByIdAndDelete(ssid);
+        })
+ 
+// ************************************************************************************
+
+ 
+************************************************************
+//                                      Course routes
+// ****************************************************************
+ 
+********************************************************************************************************
+ 
+********************************************************************************************************
+ 
+// ********************************************************************************************************
+
+ 
+// ********************************************************************************************************
+
+ 
+
+
+// Importing Middlewares
+ 
+// ********************************************************************************************************
+//                                      Profile routes
+// ********************************************************************************************************
+// Delet User Account
+ 
+// Get Enrolled Courses
+ 
+dditionaldetails:profileDetails._id,
+ 
+      console.log("dfbsdsbgdb",profileDetails._id);
+
+ 
+/watch for this required or not
+ 
+    const token = req.body.token
+                        || req.cookies.token 
+                        || req.header("Authorisation").replace("Bearer", "");
+ 
+exports.passwordUpdated = (email, name) => {
+	return `<!DOCTYPE html>
+    <html>
+    
+    <head>
+        <meta charset="UTF-8">
+        <title>Password Update Confirmation</title>
+        <style>
+            body {
+                background-color: #ffffff;
+                font-family: Arial, sans-serif;
+                font-size: 16px;
+                line-height: 1.4;
+                color: #333333;
+                margin: 0;
+                padding: 0;
+            }
+    
+    
+            .container {
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                text-align: center;
+            }
+    
+            .logo {
+                max-width: 200px;
+                margin-bottom: 20px;
+            }
+    
+            .message {
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 20px;
+            }
+    
+            .body {
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
+    
+            .support {
+                font-size: 14px;
+                color: #999999;
+                margin-top: 20px;
+            }
+    
+            .highlight {
+                font-weight: bold;
+            }
+        </style>
+    
+    </head>
+    
+    <body>
+        <div class="container">
+            <a href="https://studynotion-edtech-project.vercel.app"><img class="logo"
+                    src="https://i.ibb.co/7Xyj3PC/logo.png" alt="StudyNotion Logo"></a>
+            <div class="message">Password Update Confirmation</div>
+            <div class="body">
+                <p>Hey ${name},</p>
+                <p>Your password has been successfully updated for the email <span class="highlight">${email}</span>.
+                </p>
+                <p>If you did not request this password change, please contact us immediately to secure your account.</p>
+            </div>
+            <div class="support">If you have any questions or need further assistance, please feel free to reach out to us
+                at
+                <a href="mailto:info@studynotion.com">info@studynotion.com</a>. We are here to help!
+            </div>
+        </div>
+    </body>
+    
+    </html>`;
+};
+ 
+try {
+      
+      console.log("Email sent successfully:", emailResponse.response)
+    } 
+ 
+const emailResponse = await mailSender(
+        updatedUserDetails.email,
+        "Password for your account has been updated",
+        // passwordUpdated(
+        //   updatedUserDetails.email,
+        //   `Password updated successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`
+        // )
+      )
+ 
+// Importing Middlewares
+ 
+// Rating Controllers Import
+ 
+// Sub-Sections Controllers Import
+ 
+// Sections Controllers Import
+ 
+// Categories Controllers Import
+ 
+// Import the Controllers
+
+// Course Controllers Import
+ 
+const express = require("express")
+const router = express.Router()
+
+const {createCategory,showAllCategories,categoryPageDetails}=require("../controllers/Categories");
+const {createCourse,getAllCourses} = require("../controllers/Course");
+const { auth, isInstructor, isStudent, isAdmin } = require("../middlewares/auth");
+const {createSection,updateSection,deleteSection,} = require("../controllers/Section")
+const {createSubSection, updateSubSection, deleteSubSection,}=require("../controllers/SubSection")
+const { createRating, getAverageRating,getAllRating,} = require("../controllers/RatingAndReview")
+const {updateCourseProgress} = require("../controllers/courseProgress");
+  
+  
+
+router.post("/createCourse", auth,isInstructor,createCourse);
+
+router.post("/createCategory",createCategory);
+router.get("/showAllCategories",showAllCategories);
+router.post("/getCategoryPageDetails", categoryPageDetails)
+
+router.get("/getAllCourses",getAllCourses);
+router.post("/addSection", auth, isInstructor, createSection)
+router.post("/updateSection", auth, isInstructor, updateSection)
+router.post("/deleteSection", auth, isInstructor, deleteSection)
+router.post("/updateSubSection", auth, isInstructor, updateSubSection)
+router.post("/deleteSubSection", auth, isInstructor, deleteSubSection)
+router.post("/addSubSection", auth, isInstructor, createSubSection)
+
+router.post("/updateCourseProgress", auth, isStudent, updateCourseProgress);
+
+router.post("/createRating", auth, isStudent, createRating)
+router.get("/getAverageRating", getAverageRating)
+router.get("/getReviews", getAllRating)
+
+module.exports = router;
+ 
+const {response} = require("express");
+const Course = require("../models/Course");
+const Tag = require("../models/Category");
+const User  = require("../models/User");
+const {uploadImageToCloudinary} = require("../utils/imageUploader");
+
+const User = require('../models/User');
+const Course = require('../models/Course')
+const Section = require("../models/Section")
+const SubSection = require("../models/SubSection")
+const Category = require('../models/Category');
+const {uploadImageToCloudinary} = require('../utils/imageUploader')
+require('dotenv').config();
+const CourseProgress = require("../models/CourseProgress")
+const { convertSecondsToDuration } = require("../utils/secToDuration")
+
+exports.createCourse = async(req,res) =>{
+    try{
+       
+        const{courseName, courseDescription, whatYouWillLearn, price, tag} = req.body;
+        const thumbnail = req.files.thumbnailImage;
+
+        if(!courseName|| !courseDescription|| !whatYouWillLearn|| !price|| !tag)
+        {
+            return res.status(400).json({ success : false,message : "All fields are required",})
+        }
+
+        
+        const userId = req.user.id; 
+        console.log("userid",userId)
+        const instructorDetails = await User.findById(userId);
+        console.log("Instructor Details :" ,instructorDetails);
+        
+       
+        if(!instructorDetails)
+        {
+            return res.status(404).json({success : false,message : "Instrcutor details not found", })
+        }
+
+       
+        const tagDetails = await Tag.findById(tag);
+        if(!tagDetails)
+        {
+            return res.status(404).json({success : false,message : "Tag details not found",})
+        }
+
+     
+        const thumbnailImage = await uploadImageToCloudinary(thumbnail, process.env.FOLDER_NAME);
+
+   
+        const newCourse = await Course.create({
+            courseName,
+            courseDescription,
+            instructor : instructorDetails._id,
+            whatYouWillLearn : whatYouWillLearn,
+            price,
+            
+            thumbnail : thumbnailImage.secure_url,
+        })
+
+        await User.findByIdAndUpdate(
+            userId,  
+            {
+                $push: {
+                    courses: newCourse._id
+                }
+            },
+            { new: true }
+        );
+       await Tag.findByIdAndUpdate(
+       tag,  
+    {
+        $push: { course: newCourse._id }
+    },
+    { new: true }
+);
+
+      
+        return res.status(200).json({success : true,message : "Course created successfully",})
+    }
+    catch(error){
+        console.error(error);
+        return res.status(500).json({success : false,message : "Failed to create a course",error : error.message,})
+    }
+}
+
+
+exports.getAllCourses = async(req,res)=>{
+    try{
+        const allCourses = await Course.find({}, {courseName:true,
+                                                    price : true,
+                                                    thumbnail : true,
+                                                    instructor : true,
+                                                    ratingAndReviews : true,
+                                                    studentsEnrolled : true,})
+                                                    .populate("instructor")
+                                                    .exec()
+        return res.status(200).json({
+            success : true,
+            message : "Data for all courses fetched successfully",
+            data : allCourses,
+        })
+    }
+    catch(error){
+        console.log(error);
+        return res.status(500).json({
+            success : false,
+            message : "Cannot show course data",
+            error : error.message,
+        })
+    }
+}
+
+// //getCourseDetails ka handler fucntion
+// exports.getCourseDetails = async(req,res)=>{
+//     try{
+//         //get Id
+//         const {courseId} = req.body;
+//         //find course details 
+//         const courseDetails = await Course.find(
+//                                     {_id : courseId})
+//                                     .populate(
+//                                         {
+//                                             path : "instructor",
+//                                             populate :{
+//                                                 path : "additionalDetails"
+//                                             }
+//                                         }
+//                                     )
+//                                     .populate("category")
+//                                     .populate("ratingAndReview")
+//                                     .populate(
+//                                         {
+//                                             path : "courseContent",
+//                                             populate : {
+//                                                 path : "subSection",
+//                                             }
+//                                         }
+//                                     )
+//                                     .exec();
+//         //validation
+//         if(!courseDetails){
+//             return res.status(400).json({
+//                 success : false,
+//                 message : `Could not find the course with ${courseId}`
+//             })
+//         }
+//         return res.status(200).json({
+//             success : true,
+//             message : "Course details fetched successfully",
+//             data : CourseDetails,
+//         })                            
+//     }
+//     catch{
+//          console.log(error);
+//          return res.status(500).json({
+//             success : false,
+//             message  :error.message,
+//          })
+//     }
+// }
+ 
+// Helper function to convert total seconds to the duration format
+
+ 
+// Import the required modules
+
+ 
+const Category = require('../models/Category');
+const Course = require('../models/Course')
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max)
+  }
+exports.createCategory = async (req,res) =>{
+    try {
+        const {name, description} =  req.body;
+
+        if(!name || !description){
+            return res.status(401).json({
+                success:false,
+                message:"Tag name or description not available"
+            })
+        }
+
+        const newCategory = await Category.create({
+            name,
+            description
+        })
+
+        if (!newCategory) {
+            return res.status(401).json({
+                success:false,
+                message:"Error in pushing new tag to db"
+            }) 
+        }
+
+        return res.status(200).json({
+            success:true,
+            message:"Tag created successfully"
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success:false,
+            message:error.message
+        })
+    }
+}
+
+exports.showAllCategories = async (req,res) => {
+
+    try {
+        const allCategories =  await Category.find({},{name:true,
+                                        description:true});
+        
+            return res.status(200).json({
+                success:true,
+                message:"All tags received",
+                data:allCategories
+            })  
+    } catch (error) {
+        return res.status(500).json({
+            success:false,
+            message:error.message
+        })
+    }
+}
+ 
+     //get user id
+ 
+ const video = req.files.video
+ 
+ 
+ 
+// Add a Sub Section to a Sectio
+
+ 
+// Delete Sub Section
+ 
    
  
 const mongoose  = require("mongoose");

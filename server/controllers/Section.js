@@ -64,13 +64,13 @@ exports.deleteSection = async (req,res) => {
 
         if (!sectionId) 
         {
-            return res.status(400).json({ success:false,message:'All fields are required',});
+            return res.status(400).json({ success:false,message:'All fields are equired',});
         }
         const sectionDetails = await Section.findById(sectionId);
         // //Section ke ander ke subsections delete kiye hai 
-        // sectionDetails.subSection.forEach( async (ssid)=>{
+        // for (const ssid of sectionDetails.subSection) {
         //     await SubSection.findByIdAndDelete(ssid);
-        // })
+        // }
         console.log('Subsections within the section deleted')
         //NOTE: Due to cascading deletion, Mongoose automatically triggers the built-in middleware to perform a cascading delete for all the referenced 
         //SubSection documents. DOUBTFUL!
@@ -83,7 +83,7 @@ exports.deleteSection = async (req,res) => {
         return res.status(200).json({
             success:true,
             message:'Section deleted successfully',
-            updatedCourse
+            
         })   
     } catch (error) {
         console.error(error);
