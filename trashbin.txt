@@ -1,3 +1,33 @@
+console.log("Email Sent Successfully",mailResponse);
+ 
+const mailResponse=await mailSender(email,"Verification Email from Anonymous undefined",otp);
+ 
+const emailResponse = await mailSender(
+				updatedUserDetails.email,
+				passwordUpdated(
+					updatedUserDetails.email,
+					`Password updated successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`
+				)
+			);
+ 
+passwordUpdated(
+					updatedUserDetails.email,
+					`Password updated successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`
+ 
+const emailResponse = await mailSender(
+				updatedUserDetails.email,
+				passwordUpdated(
+					updatedUserDetails.email,
+					`Password updated successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`
+				)
+			);
+ 
+ subSection:{
+            type:mongoose.Schema.Types.ObjectId,
+            req:true,
+            ref:"SubSection"
+        },
+ 
  sectionDetails.subSection.forEach( async (ssid)=>{
             await SubSection.findByIdAndDelete(ssid);
         })

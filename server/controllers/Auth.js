@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const mailSender = require("../utils/mailSender");
-const {passwordUpdated} = require("../mail/templates/passwordUpdate");
+const {passwordUpdated} = require("../mail/passwordUpdated");
 
 
 
@@ -90,7 +90,7 @@ exports.signup=async(req,res)=>{
       
       console.log("Profile ID:", profileDetails._id);
       const user= await User.create({firstName,lastName,email,contactNumber,
-                  password:hashedPassword,accountType, additionalDetails: profileDetails._id,
+                  password:hashedPassword,accountType,
                   image:`https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,  
       });
       return res.status(200).json({success:true,message:"User Registered successfully",user}); 
@@ -165,12 +165,13 @@ exports.changePassword = async (req,res) => {
   
     try {
 			const emailResponse = await mailSender(
-				updatedUserDetails.email,
-				passwordUpdated(
-					updatedUserDetails.email,
-					`Password updated successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`
-				)
-			);
+        updatedUserDetails.email,
+        'Password Update Confirmation', // Subject
+        passwordUpdated(
+            updatedUserDetails.email,
+            `${updatedUserDetails.firstName} ${updatedUserDetails.lastName}` // Pass only the name
+        )
+    );
 			console.log("Email sent successfully:", emailResponse.response);
 		}
     catch (error)
